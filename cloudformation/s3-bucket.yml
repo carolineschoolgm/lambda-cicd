@@ -9,6 +9,8 @@ Resources:
       Tags:
         - Key: Name
           Value: !Ref Enviroment 
+        - Key: Environment
+          Value: GitHubActionstesting
 
 Outputs:
   S3BucketName:

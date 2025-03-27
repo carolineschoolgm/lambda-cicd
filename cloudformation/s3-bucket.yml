@@ -10,7 +10,7 @@ Resources:
         - Key: Name   
           Value: !Ref Environment 
         - Key: Environment
-          Value: GitHubActionstesting!
+          Value: GitHubActionstesting2
 
 Outputs:
   S3BucketName:

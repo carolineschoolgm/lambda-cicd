@@ -1,0 +1,18 @@
+AWSTemplateFormatversion: '010-09-09'
+Description: 'template fpr s3-bucket'
+
+Resources:
+  S3Bucket:
+    Type: 'AWS::S3::Bucket'
+    Properties: 
+      BucketName: !Sub '${AWS::StackName}-$[Environment]-bucket'
+      Tags:
+        - Key: Name
+          Value: !Ref Enviroment 
+
+Outputs:
+  S3BucketName:
+    Description: 'Name of the S3 bucket'
+    Value: !Ref S3Bucket
+
+``` 

@@ -36,11 +36,12 @@ jobs:
          with:
            github-token: ${{ secrets.GITHUB_TOKEN }}
            script: |
-             github.issues.createComment({
+             const { github, context } = require('@actions/github');
+             github.rest.issues.createComment({
                issue_number: context.issue.number,
                owner: context.repo.owner,
                repo: context.repo.repo,
-               body: 'CloudFormation test stack deployed: Stack name: pr-test-stack-${{ github.event.pull_request.number }}'
+               body: `CloudFormation test stack deployed: Stack name: pr-test-stack-${{ context.issue.number }}`
              })
    cleanup-on-merge:
      runs-on: ubuntu-latest

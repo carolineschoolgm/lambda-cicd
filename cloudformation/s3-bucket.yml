@@ -1,6 +1,15 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: 'template for s3-bucket'
 
+Parameters:
+  Environment:
+    Type: String
+    Default: test
+    AllowedValues:
+      - test
+      - staging
+      - production
+
 Resources:
   S3Bucketcl:
     Type: 'AWS::S3::Bucket'

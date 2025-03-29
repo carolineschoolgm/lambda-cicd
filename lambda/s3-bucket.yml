@@ -11,7 +11,6 @@ Parameters:
       - test
       - prod
 
-
 Resources:
     S3Bucket:
       Type: 'AWS::S3::Bucket'
@@ -19,10 +18,8 @@ Resources:
         BucketName: !Sub '${AWS::StackName}-$[Environment]-bucket'
         Tags:
           - Key: Environment
-            Value: !Ref Environment 
-  
-  Outputs:
-    S3BucketName:
-      Description: 'Name of the S3 bucket'
-      Value: !Ref S3Bucket
-  
+            Value: !Ref Environment  
+Outputs:
+  S3BucketName:
+    Description: 'Name of the S3 bucket'
+    Value: !Ref S3Bucket

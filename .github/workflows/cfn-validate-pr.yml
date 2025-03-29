@@ -2,6 +2,7 @@ name: Validate CloudFormation on PR
 
 on:
   pull_request:
+    types: [opened, synchronize, reopened, closed]
     paths:
       - cloudformation/**
 
@@ -36,12 +37,11 @@ jobs:
          with:
            github-token: ${{ secrets.GITHUB_TOKEN }}
            script: |
-             const { github, context } = require('@actions/github');
              github.rest.issues.createComment({
-               issue_number: context.issue.number,
+               issue_number: github.event.pull_request.number,
                owner: context.repo.owner,
                repo: context.repo.repo,
-               body: `CloudFormation test stack deployed: Stack name: pr-test-stack-${{ context.issue.number }}`
+               body: `CloudFormation test stack deployed: Stack name: pr-test-stack-${{ github.event.pull_request.number }}`
              })
    cleanup-on-merge:
      runs-on: ubuntu-latest
@@ -56,5 +56,5 @@ jobs:
 
        - name: Delete Test Stack
          run: |
-           stack_name="pr-test-stack-${{ github.event.pull_request.number }}"
+           stack_name=pr-test-stack-${{ github.event.number }}
            aws cloudformation delete-stack --stack-name $stack_name

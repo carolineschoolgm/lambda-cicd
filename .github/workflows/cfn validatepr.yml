@@ -3,7 +3,7 @@ name: Validate CloudFormation on PR
 on:
   pull_request:
     paths:
-      - cloudformation/**
+      - 'lambda/**''
 
 permissions:
   pull-requests: write

@@ -43,16 +43,16 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             try {
-            if (context.payload.pull_request) {
-            await github.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body:`CloudFormation test stack deployed: Stack name: pr-test-stack-${context.payload.pull_request.number}`
-            });
-            } else {
-              console.log('No PR found')
+              if (context.payload.pull_request) {
+                await github.issues.createComment({
+                  issue_number: context.issue.number,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  body: `CloudFormation test stack deployed: Stack name: pr-test-stack-${context.payload.pull_request.number}`
+                });
+              } else {
+                console.log('No PR found');
+              }
+            } catch (error) {
+              console.log("GitHub comment error:", error.message);
             }
-          } catch (error) {
-             console.log("GitHubcomment error:", err.message);
-          }

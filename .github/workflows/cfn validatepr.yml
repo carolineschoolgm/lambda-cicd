@@ -2,6 +2,8 @@ name: Validate CloudFormation on PR
 
 on:
   pull_request:
+    branches:
+      - main
     paths:
       - 'cloudformation/**'
 

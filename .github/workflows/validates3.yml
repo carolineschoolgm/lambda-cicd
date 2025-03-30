@@ -8,7 +8,7 @@ on:
       - 'lambda/cloudformation/s3-bucket.yml'
 
 jobs: 
-  validate-and-deploy-S3:
+  validate-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -22,12 +22,12 @@ jobs:
 
       - name: Validate CloudFormation
         run: |
-          aws cloudformation validate-template --template-body file://cloudformation/s3-bucket.yml
+          aws cloudformation validate-template --template-body file://lambda/cloudformation/s3-bucket.yml
 
       - name: Deploy your stack
         run: |
           stack_name="pr-test-stack-${{ github.event.pull_request.number }}"
-          aws cloudformation create-stack --stack-name $stack_name --template-body file://cloudformation/s3-bucket.yml --parameters ParameterKey=Environment,ParameterValue=test
+          aws cloudformation create-stack --stack-name $stack_name --template-body file://lambda/cloudformation/s3-bucket.yml --parameters ParameterKey=Environment,ParameterValue=test
 
       - name: Comment on PR
         uses: actions/github-script@v6

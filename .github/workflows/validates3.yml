@@ -34,9 +34,13 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            github.issues.createComment({
+            if (context.paylooad.pull_request){
+            await github.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: 'CloudFormation test stack deployed: Stack name: pr-test-stack-${{ github.event.pull_request.number }}'
             })
+            } else {
+              console.log('No PR found')
+            }

@@ -20,7 +20,7 @@ Resources:
           - Key: Environment
             Value: !Ref Environment 
           - Key: Name
-            Value: Testing the GitHub Actions workflow with new branhc
+            Value: my github actions workflow
 Outputs:
   S3BucketName:
     Description: 'Name of the S3 bucket'

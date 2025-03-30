@@ -36,6 +36,8 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
+            const octokit = github.getOctokit('${{ secrets.GITHUB_TOKEN }}');
+            octokit.issues.createComment({
             github.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,

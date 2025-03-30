@@ -20,7 +20,7 @@ Resources:
           - Key: Environment
             Value: !Ref Environment 
           - Key: Name
-            Value: Testing Github Actions
+            Value: Testing the Github Actions
 Outputs:
   S3BucketName:
     Description: 'Name of the S3 bucket'

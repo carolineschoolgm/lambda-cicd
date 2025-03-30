@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'cloudformation/s3-bucket.yml'
+      - 'lambda/cloudformation/s3-bucket.yml'
 
 jobs: 
   validate-and-deploy-S3:

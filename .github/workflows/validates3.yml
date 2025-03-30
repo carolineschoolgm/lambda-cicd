@@ -28,19 +28,31 @@ jobs:
         run: |
           stack_name="pr-test-stack-${{ github.event.pull_request.number }}"
           aws cloudformation create-stack --stack-name $stack_name --template-body file://lambda/cloudformation/s3-bucket.yml --parameters ParameterKey=Environment,ParameterValue=test
+        
+      - name: Debug context 
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            console.log("Event name: ", context.eventName)
+            console.log("Payload keys: ", Object.keys(context.payload));
 
       - name: Comment on PR
         uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
+            try {
             if (context.payload.pull_request) {
             await github.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
               body:`CloudFormation test stack deployed: Stack name: pr-test-stack-${context.payload.pull_request.number}`
-            })
+            });
             } else {
               console.log('No PR found')
             }
+          } catch (error) {
+             console.log("GitHubcomment error:", err.message);
+          }
